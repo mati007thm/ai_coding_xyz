@@ -8,19 +8,25 @@ def fibonacci(n):
     Returns:
         int: The nth Fibonacci number.
     """
+    if n == 0:
+        return 0
+    elif n == 1:
+        return 1
+    
     result = 0
     a, b = 0, 1
-    for i in range(n + 1):
+    for i in range(2, n + 1):
         result = a
         a, b = b, a + b
-        print(f'{i}: {result}')
     return result
 
-fibonacci(10)
+# Example usage
+n = 10
+print(f"The {n}th Fibonacci number is: {fibonacci(n)}")
 
-def factorial(n):
+def factorial(n, memo={0: 0, 1: 1}):
     """
-    Calculate the factorial of a given number using recursion.
+    Calculate the factorial of a given number using recursion with memoization.
     
     Args:
         n (int): The number to calculate the factorial for.
@@ -28,11 +34,12 @@ def factorial(n):
     Returns:
         int: The factorial of the number.
     """
-    if n == 0:
-        return 0
-    elif n == 1:
-        return 1
+    if n in memo:
+        return memo[n]
     else:
-        return n * factorial(n-1)
+        memo[n] = n * factorial(n-1, memo)
+        return memo[n]
 
-print("Factorial: " + str(factorial(5)))
+# Example usage
+n = 5
+print(f"The factorial of {n} is: {factorial(n)}")
